@@ -11,13 +11,12 @@ WORKDIR /app
 # Copy backend code
 COPY backend ./backend
 
-# # Copy built React files into backend/public
+# Copy built React files into backend/public (if needed)
 # COPY --from=frontend-builder /app/frontend/build ./backend/public
 
 # Install backend dependencies
 WORKDIR /app/backend
 # RUN npm install
 
-# # Expose port and run server
-# EXPOSE 3000
-# CMD ["node", "server.js"]
+# Set up a command to run a shell for testing the files inside the container
+CMD ["sh"]
