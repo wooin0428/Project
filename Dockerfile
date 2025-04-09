@@ -18,5 +18,5 @@ COPY backend ./backend
 WORKDIR /app/backend
 # RUN npm install
 
-# Set up a command to run a shell for testing the files inside the container
-CMD ["sh"]
+# Run tail to keep the container alive for testing
+CMD ["tail", "-f", "/dev/null"]
