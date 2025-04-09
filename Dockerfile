@@ -11,8 +11,8 @@ WORKDIR /app
 # Copy backend code
 COPY backend ./backend
 
-# Copy built React files into backend/public
-COPY --from=frontend-builder /app/frontend/build ./backend/public
+# # Copy built React files into backend/public
+# COPY --from=frontend-builder /app/frontend/build ./backend/public
 
 # Install backend dependencies
 WORKDIR /app/backend
