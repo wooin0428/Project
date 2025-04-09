@@ -1,6 +1,6 @@
 stages:
-  - build
-  - deploy
+  - build + deploy
+
 
 variables:
   DOCKER_DRIVER: overlay2
@@ -16,14 +16,10 @@ image: docker:24
 before_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-build-job:
-  stage: build
+build + deploy:
+  stage: build + deploy
   script:
     - docker build -t $IMAGE_NAME:latest .
-
-deploy-job:
-  stage: deploy
-  script:
     - docker push $IMAGE_NAME:latest
-  only:
-    - main
+
+
