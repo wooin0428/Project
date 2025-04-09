@@ -2,29 +2,28 @@ stages:
   - build
   - deploy
 
-image: docker:latest
-
-services:
-  - docker:dind
-
 variables:
   DOCKER_DRIVER: overlay2
   IMAGE_NAME: boiledsteak/infinity-cleaner-app
 
-before_script:
-  - docker info
+# Use DinD service to run Docker inside the job
+services:
+  - docker:dind
 
-# when docker build is called, dockerfile will be "activated"
+# Use Docker CLI image (with Docker client installed)
+image: docker:24
+
+before_script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
 build-job:
   stage: build
   script:
-    - docker build -t $IMAGE_NAME:latest . 
+    - docker build -t $IMAGE_NAME:latest .
 
 deploy-job:
   stage: deploy
   script:
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker push $IMAGE_NAME:latest
   only:
     - main
-  environment: production
