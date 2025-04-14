@@ -1,25 +1,36 @@
 stages:
-  - build + deploy
+  - build
+  - deploy
 
 variables:
   DOCKER_DRIVER: overlay2
   IMAGE_NAME: boiledsteak/infinity-cleaner-app
 
-services:
-  - docker:dind
-
-image: docker:24
-
-before_script:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
-build + deploy:
-  stage: build + deploy
+# Build Stage: Build the frontend using Node.js
+build:
+  stage: build
+  image: node:18-alpine  # Use Node.js image to build frontend
   script:
-    # Build the frontend first
-    - npm update --prefix frontend
-    - npm install --prefix frontend
-    - npm run build --prefix frontend  # This will generate the 'dist' folder
-    # Now build the Docker image with the pre-built frontend
+    - npm install --prefix frontend  # Install dependencies for frontend
+    - npm run build --prefix frontend  # Build the frontend and generate 'dist' folder
+  artifacts:
+    paths:
+      - frontend/dist  # Save the 'dist' folder as an artifact
+    expire_in: 1 hour  # Optionally, specify how long the artifacts are kept
+
+# Deploy Stage: Build Docker image with frontend and backend
+deploy:
+  stage: deploy
+  image: docker:24  # Use Docker image to build and push Docker image
+  services:
+    - docker:dind  # Use Docker-in-Docker to allow Docker commands
+  before_script:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  script:
+    # Retrieve the frontend build artifacts from the build stage
+    - mkdir -p frontend/dist
+    - cp -r $CI_PROJECT_DIR/frontend/dist ./frontend/dist
+    # Build the Docker image
     - docker build -t $IMAGE_NAME:latest .
+    # Push the Docker image
     - docker push $IMAGE_NAME:latest
