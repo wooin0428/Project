@@ -22,7 +22,7 @@ app.get("/api/*", (req, res) => {
 
 // Serve the React app for any route that doesn't match an API route
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 
 // Start the server

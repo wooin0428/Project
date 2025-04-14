@@ -1,26 +1,24 @@
-# Use an official Node.js runtime as a parent image
+# Use an official Node.js runtime
 FROM node:18-alpine
 
-# Set the working directory inside the container
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy backend and frontend directories into the container
+
+# Copy both backend and frontend source files into the container
+COPY package.json .
 COPY backend ./backend
 COPY frontend ./frontend
 
-# Install dependencies for backend and frontend
-WORKDIR /app/frontend
+
+# Install all dependencies using the root script
 RUN npm install
 
-# Build the frontend with Vite (production build)
+# Build the frontend
 RUN npm run build
 
-# Install backend dependencies
-WORKDIR /app/backend
-RUN npm install
-
-# Expose the port the app runs on
+# Expose the backend server port
 EXPOSE 8080
 
-# Set the command to start the server
-CMD ["node", "backend/server.js"]
+# Start the Express backend
+CMD ["npm", "start"]
