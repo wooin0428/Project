@@ -13,5 +13,8 @@ COPY backend ./backend
 COPY frontend/dist ./frontend/dist
 
 # Expose port and start the server
-EXPOSE 8080
-CMD ["node", "backend/server.js"]
+# EXPOSE 8080
+# CMD ["node", "backend/server.js"]
+
+# Run tail to keep the container alive for testing
+CMD ["tail", "-f", "/dev/null"]
