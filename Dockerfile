@@ -12,7 +12,7 @@ COPY backend ./backend
 # Copy built frontend artifacts into backend's public serving folder
 COPY frontend/dist ./frontend/dist
 
-Expose port and start the server
+# Expose port and start the server
 EXPOSE 8080
 CMD ["node", "app/backend/server.js"]
 
