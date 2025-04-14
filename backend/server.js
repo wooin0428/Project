@@ -29,7 +29,7 @@ app.get("/api/version", async (req, res) => {
 });
 
 // Fallback to React app
-app.get("*", (req, res) => {
+app.get("*name", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
 });
 
