@@ -19,7 +19,7 @@ build:
       - frontend/dist  # Save the 'dist' folder as an artifact
     expire_in: 1 hour  # Optionally, specify how long the artifacts are kept
 
-# Deploy Stage: Build Docker image with frontend and backend
+# Deploy Stage:
 deploy:
   stage: deploy
   image: docker:24  # Use Docker image to build and push Docker image
@@ -28,13 +28,6 @@ deploy:
   before_script:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   script:
-    # Ensure the frontend/dist directory exists in GitLab CI before copying
-    - ls -la $CI_PROJECT_DIR/frontend/dist  # Check the contents of the frontend dist directory
-    # Ensure the destination directory is clean before copying
-    - rm -rf ./frontend/dist
-    - mkdir -p ./frontend/dist
-    - cp -r $CI_PROJECT_DIR/frontend/dist/* ./frontend/dist/  # Copy the build output into the correct directory
-
     # Build the Docker image
     - docker build -t $IMAGE_NAME:latest .
 
