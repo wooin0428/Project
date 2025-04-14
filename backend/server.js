@@ -3,9 +3,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { neon } from "@neondatabase/serverless";
-import dotenv from "dotenv";
-
-dotenv.config(); // Load .env
 
 const app = express();
 const PORT = process.env.PORT || 8080;
