@@ -1,16 +1,13 @@
 stages:
   - build + deploy
 
-
 variables:
   DOCKER_DRIVER: overlay2
   IMAGE_NAME: boiledsteak/infinity-cleaner-app
 
-# Use DinD service to run Docker inside the job
 services:
   - docker:dind
 
-# Use Docker CLI image (with Docker client installed)
 image: docker:24
 
 before_script:
@@ -21,5 +18,3 @@ build + deploy:
   script:
     - docker build -t $IMAGE_NAME:latest .
     - docker push $IMAGE_NAME:latest
-
-
