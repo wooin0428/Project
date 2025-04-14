@@ -16,5 +16,10 @@ before_script:
 build + deploy:
   stage: build + deploy
   script:
+    # Build the frontend first
+    - npm update --prefix frontend
+    - npm install --prefix frontend
+    - npm run build --prefix frontend  # This will generate the 'dist' folder
+    # Now build the Docker image with the pre-built frontend
     - docker build -t $IMAGE_NAME:latest .
     - docker push $IMAGE_NAME:latest
