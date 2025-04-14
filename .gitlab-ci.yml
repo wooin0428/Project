@@ -28,10 +28,16 @@ deploy:
   before_script:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   script:
-    # Retrieve the frontend build artifacts from the build stage
-    - mkdir -p frontend/dist
-    - cp -r $CI_PROJECT_DIR/frontend/dist ./frontend/dist
+    # Ensure the frontend/dist directory exists in GitLab CI before copying
+    - ls -la $CI_PROJECT_DIR/frontend/dist  # Check the contents of the frontend dist directory
+    # Ensure the destination directory is clean before copying
+    - rm -rf ./frontend/dist
+    - mkdir -p ./frontend/dist
+    - cp -r $CI_PROJECT_DIR/frontend/dist/* ./frontend/dist/  # Copy the build output into the correct directory
+
     # Build the Docker image
     - docker build -t $IMAGE_NAME:latest .
+
     # Push the Docker image
     - docker push $IMAGE_NAME:latest
+
