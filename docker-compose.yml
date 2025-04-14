@@ -1,12 +1,12 @@
 services:
-  app:
-    build: .
+  infinity-cleaner-app:
+    image: boiledsteak/infinity-cleaner-app:latest
     ports:
-      - "4433:8080"  # Exposes container's port 8080 to the host's port 4433
-    environment:
-      - NODE_ENV=production
+      - "4433:8080"  # Expose port 4433 externally and map it to internal port 8080
     networks:
       - app-network
+    environment:
+      - NODE_ENV=production  # Add any environment variables if needed
 
 networks:
   app-network:

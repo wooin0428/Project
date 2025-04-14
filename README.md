@@ -8,7 +8,7 @@ https://hub.docker.com/r/boiledsteak/infinity-cleaner-app
 
 start docker container with
 ```
-docker-compose up --build
+docker-compose up
 ```
 access the app
 ```
