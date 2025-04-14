@@ -12,9 +12,9 @@ COPY backend ./backend
 # Copy built frontend artifacts into backend's public serving folder
 COPY frontend/dist ./frontend/dist
 
-# # Expose port and start the server
-# EXPOSE 8080
-# CMD ["node", "backend/server.js"]
+# Expose port and start the server
+EXPOSE 8080
+CMD ["node", "backend/server.js"]
 
-# Run tail to keep the container alive for testing
-CMD ["tail", "-f", "/dev/null"]
+# # Run tail to keep the container alive for testing
+# CMD ["tail", "-f", "/dev/null"]
