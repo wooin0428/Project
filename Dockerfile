@@ -20,5 +20,8 @@ RUN npm run build
 # Expose the backend server port
 EXPOSE 8080
 
-# Start the Express backend
-CMD ["npm", "start"]
+# # Start the Express backend
+# CMD ["npm", "start"]
+
+#  for testing
+CMD ["tail", "-f", "/dev/null"]
