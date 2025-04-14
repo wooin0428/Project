@@ -1,24 +1,26 @@
-# Step 1: Build React app
-# FROM node:18-alpine AS frontend-builder
-# WORKDIR /app
-# COPY frontend ./frontend
-# RUN cd frontend && npm install && npm run build
-
-# Step 2: Build Express app and include React build
+# Use an official Node.js runtime as a parent image
 FROM node:18-alpine
+
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy backend code
+# Copy backend and frontend directories into the container
 COPY backend ./backend
-# testing 
 COPY frontend ./frontend
 
-# Copy built React files into backend/public (if needed)
-# COPY --from=frontend-builder /app/frontend/build ./backend/public
+# Install dependencies for backend and frontend
+WORKDIR /app/frontend
+RUN npm install
+
+# Build the frontend with Vite (production build)
+RUN npm run build
 
 # Install backend dependencies
-# WORKDIR /app/backend
-# RUN npm install
+WORKDIR /app/backend
+RUN npm install
 
-# Run tail to keep the container alive for testing
-CMD ["tail", "-f", "/dev/null"]
+# Expose the port the app runs on
+EXPOSE 8080
+
+# Set the command to start the server
+CMD ["node", "backend/server.js"]

@@ -6,8 +6,34 @@ mini fyp cleaning service platform
 app deployed to dockerhub
 https://hub.docker.com/r/boiledsteak/infinity-cleaner-app
 
+start docker container with
+```
+docker-compose up --build
+```
+access the app
+```
+http://localhost:4433
+```
 
-## the start up process:
+## codebase structure
+
+```
+/app
+├── backend
+│   ├── server.js
+│   ├── package.json
+│   └── ...
+├── frontend
+│   ├── public
+│   ├── src
+│   ├── package.json
+│   ├── dist (generated after build)
+│   └── ...
+├── Dockerfile
+└── docker-compose.yml
+```
+
+## the app start up process:
 - npm update
 - npm install
 - npm run build
