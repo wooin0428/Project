@@ -13,6 +13,7 @@ build:
   script:
     - npm install --prefix frontend  # Install dependencies for frontend
     - npm run build --prefix frontend  # Build the frontend and generate 'dist' folder
+    - ls -la frontend/dist  # Check if the dist folder is created
   artifacts:
     paths:
       - frontend/dist  # Save the 'dist' folder as an artifact
