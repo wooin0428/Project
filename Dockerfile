@@ -2,13 +2,11 @@
 FROM node:18-alpine AS frontend-builder
 WORKDIR /frontend
 
-# Copy root package.json for installing root dependencies
-COPY package.json ./ # This is the root package.json
-RUN npm install
-
-# Copy frontend-specific files and install frontend dependencies
+# Copy frontend package.json first for installing frontend dependencies
 COPY frontend/package.json ./frontend/
 RUN npm install --prefix frontend
+
+# Copy the rest of the frontend files and build the frontend
 COPY frontend/ . 
 RUN npm run build --prefix frontend
 
@@ -16,18 +14,18 @@ RUN npm run build --prefix frontend
 FROM node:18-alpine
 WORKDIR /app
 
-# Copy root package.json to install backend dependencies and root dependencies
-COPY package.json ./  # This is the root package.json
-RUN npm install
+# Copy root package.json to install root dependencies
+COPY package.json ./
+RUN npm install  # Install root dependencies, like concurrently
 
-# Copy only the necessary backend files and install backend dependencies
+# Copy backend package.json and install backend dependencies
 COPY backend/package.json ./backend/
 RUN npm install --prefix backend
 
 # Copy backend source files
 COPY backend ./backend
 
-# Copy built frontend artifacts into backend's public serving folder
+# Copy the built frontend artifacts into the backend's public folder
 COPY --from=frontend-builder /frontend/dist ./frontend/dist
 
 # Expose the backend server port
