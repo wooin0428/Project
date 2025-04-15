@@ -170,3 +170,8 @@ CreateUserGroup.jsx Styling
     border-radius: 5px;
     cursor: pointer;
   }
+
+  .header {
+    background-color: lightblue;
+    padding: 10px;
+  }
