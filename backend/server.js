@@ -148,6 +148,30 @@ app.get("/api/matchhistory1", async (req, res) => {
   }
 });
 
+// Get all cleaners shortlisted by a specific homeowner
+app.get("/api/shortlist", async (req, res) => {
+  const { homeowner_id } = req.query;
+
+  try {
+    const result = await sql`
+      SELECT 
+        c.cleaner_id,
+        c.cleanername,
+        c.shortlistcount,
+        c.experience,
+        c.nationality,
+        c.profileviewcount
+      FROM shortlisted_cleaner sc
+      JOIN cleaner c ON sc.cleaner_id = c.cleaner_id
+      WHERE sc.homeowner_id = ${homeowner_id}
+    `;
+
+    res.json({ shortlist: result });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch shortlisted cleaners" });
+  }
+});
 
 
 
