@@ -129,7 +129,7 @@ app.get("/api/cleaner1", async (req, res) => {
 });
 
 // 📋 Get one match history detail
-app.get("/api/matchhistory/:id", async (req, res) => {
+app.get("/api/matchhistory1", async (req, res) => {
   const matchhistory_id = 1;
 
   try {
