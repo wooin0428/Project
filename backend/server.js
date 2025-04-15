@@ -39,7 +39,7 @@ app.post("/api/register", async (req, res) => {
   const hashed = hashPassword(password);
   try {
     await sql`
-      INSERT INTO users 
+      INSERT INTO useraccounts 
         (username, emailadd, password, phone_number, homeadd, usergroup)
       VALUES 
         (${username}, ${emailadd}, ${hashed}, ${phone_number}, ${homeadd}, ${usergroup})
