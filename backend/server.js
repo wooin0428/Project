@@ -128,6 +128,25 @@ app.get("/api/cleaner1", async (req, res) => {
   }
 });
 
+// 📋 Get one match history detail
+app.get("/api/matchhistory/:id", async (req, res) => {
+  const matchhistory_id = 1;
+
+  try {
+    const result = await sql`
+      SELECT * FROM matchhistory WHERE matchhistory_id = ${matchhistory_id}
+    `;
+
+    if (result.length === 0) {
+      return res.status(404).json({ error: "Match history not found" });
+    }
+
+    res.json({ match: result[0] });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch match history detail" });
+  }
+});
 
 
 
