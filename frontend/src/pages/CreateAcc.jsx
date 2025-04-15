@@ -24,7 +24,7 @@ const CreateAcc = () => {
   return (
     <div id="b1" style={{ backgroundColor: "#efeed8", padding: "2rem" }}>
       <h1>Create a New Account</h1>
-      <form onSubmit={handleSubmit} style={{ maxWidth: "500px" }}>
+      <form className="createAccForm" onSubmit={handleSubmit} style={{ maxWidth: "500px" }}>
         <label>Username:</label>
         <input name="username" value={form.username} onChange={handleChange} required />
 

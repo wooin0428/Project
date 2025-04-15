@@ -1,0 +1,12 @@
+/* ----------------------------------------------
+
+Create Acc page styling
+
+------------------------------------------------*/
+
+
+.createAccForm
+{
+    display: flex;
+    flex-direction: column;
+}
