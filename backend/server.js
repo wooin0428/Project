@@ -107,8 +107,8 @@ app.get("/api/cleaners", async (req, res) => {
 
 // one cleaner's details
 // 📋 Get one cleaner's details by ID
-app.get("/api/cleaners/:id", async (req, res) => {
-  const cleanerId = req.params.id;
+app.get("/api/cleaner1", async (req, res) => {
+  const cleanerId = 3001;
 
   try {
     const result = await sql`
