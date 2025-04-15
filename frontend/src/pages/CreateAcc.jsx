@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { registerUser } from "../helpers/registerUser";
+import { registerUser } from "../helpers/CreateAccHelper";
 
 const CreateAcc = () => {
   const [form, setForm] = useState({
