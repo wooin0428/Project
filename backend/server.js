@@ -56,7 +56,7 @@ app.post("/api/register", async (req, res) => {
 app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
   const hashed = hashPassword(password);
-  const result = await sql`SELECT * FROM users WHERE username = ${username} AND password = ${hashed}`;
+  const result = await sql`SELECT * FROM useraccounts WHERE username = ${username} AND password = ${hashed}`;
   if (result.length > 0) {
     req.session.user = { username };
     res.json({ message: "Logged in!" });
