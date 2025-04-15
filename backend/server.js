@@ -149,8 +149,8 @@ app.get("/api/matchhistory1", async (req, res) => {
 });
 
 // Get all cleaners shortlisted by a specific homeowner
-app.get("/api/shortlist", async (req, res) => {
-  const { homeowner_id } = req.query;
+app.get("/api/shortlist2001", async (req, res) => {
+  const { homeowner_id} = 2001;
 
   try {
     const result = await sql`
