@@ -134,7 +134,7 @@ app.get("/api/matchhistory1", async (req, res) => {
 
   try {
     const result = await sql`
-      SELECT * FROM matchhistory WHERE matchhistory_id = ${matchhistory_id}
+      SELECT servicetype, servicedate, homeownername, durationhours, aomountpain, homeadd FROM matchhistory WHERE matchhistory_id = ${matchhistory_id}
     `;
 
     if (result.length === 0) {
