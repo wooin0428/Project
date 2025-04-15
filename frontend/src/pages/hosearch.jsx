@@ -1,5 +1,4 @@
 import React from 'react';
-import './styles/hosearch.css';
 
 const HomeownerSearchPage = () => {
   return (

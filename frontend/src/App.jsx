@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Login from "./pages/Login";
 import CreateAcc from "./pages/CreateAcc";
 import Dashboard from "./pages/Dashboard";
+import HomeownerSearchPage from "./pages/hosearch.jsx";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -23,6 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/createAcc" element={<CreateAcc />} />
           <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
+          <Route path="/homeownersDashboard" element={<HomeownerSearchPage />} />
 
           {/* Only add the catch-all route if not an API request */}
           {!isApiRoute && (
