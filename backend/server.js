@@ -93,6 +93,25 @@ app.get("/api/admin", (req, res) => {
   }
 });
 
+// 📋 Get all cleaner names
+app.get("/api/cleaners", async (req, res) => {
+  try {
+    const result = await sql`SELECT cleanername FROM cleaner`;
+    const names = result.map(row => row.cleanername);
+    res.json({ cleaners: names });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch cleaner names" });
+  }
+});
+
+
+
+
+
+
+
+
 // Serve frontend
 app.use(express.static(path.join(__dirname, "../frontend", "dist")));
 app.get("*name", (req, res) => {
