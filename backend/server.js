@@ -65,6 +65,18 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
+
+// check sessions
+app.get("/api/session", (req, res) => {
+  if (req.session.user) {
+    res.json({ loggedIn: true, user: req.session.user });
+  } else {
+    res.json({ loggedIn: false });
+  }
+});
+
+
+
 // 🧼 Logout
 app.post("/api/logout", (req, res) => {
   req.session.destroy(() => {
