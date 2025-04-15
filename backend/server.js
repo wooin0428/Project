@@ -108,13 +108,13 @@ app.get("/api/cleaners", async (req, res) => {
 // one cleaner's details
 // 📋 Get one cleaner's details by ID
 app.get("/api/cleaner1", async (req, res) => {
-  const cleanerId = 3001;
+  const cleaner_id = 3001;
 
   try {
     const result = await sql`
       SELECT cleanername, experience, nationality, shortlistCount, profileviewcount
       FROM cleaner
-      WHERE cleanerid = ${cleanerId}
+      WHERE cleaner_id = ${cleaner_id}
     `;
 
     if (result.length === 0) {
