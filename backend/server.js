@@ -105,6 +105,28 @@ app.get("/api/cleaners", async (req, res) => {
   }
 });
 
+// one cleaner's details
+// 📋 Get one cleaner's details by ID
+app.get("/api/cleaners/:id", async (req, res) => {
+  const cleanerId = req.params.id;
+
+  try {
+    const result = await sql`
+      SELECT cleanername, experience, nationality, shortlistCount, profileviewcount
+      FROM cleaner
+      WHERE cleanerid = ${cleanerId}
+    `;
+
+    if (result.length === 0) {
+      return res.status(404).json({ error: "Cleaner not found" });
+    }
+
+    res.json({ cleaner: result[0] });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch cleaner details" });
+  }
+});
 
 
 
