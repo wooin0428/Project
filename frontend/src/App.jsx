@@ -9,6 +9,8 @@ import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
+import ProtectedRoute from "./helpers/checkSession";
+
 
 function App() {
   const isApiRoute = window.location.pathname.startsWith("/api");

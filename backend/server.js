@@ -23,7 +23,7 @@ app.use(
     secret: "a_very_secret_key", // Change this for production
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }, // set to true with HTTPS
+    cookie: { secure: false }, // http only ?
   })
 );
 
