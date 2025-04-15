@@ -128,7 +128,7 @@ app.get("/api/cleaner1", async (req, res) => {
   }
 });
 
-// 📋 Get one match history detail
+// 📋 Get one match history detai
 app.get("/api/matchhistory1", async (req, res) => {
   const matchhistory_id = 1;
 
