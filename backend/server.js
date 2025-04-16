@@ -117,7 +117,7 @@ app.get("/api/getAllUserGroups", async (req, res) => {
 
   try {
     const result = await sql`
-      SELECT group_name FROM usergroup
+      SELECT group_name FROM usergroups
     `;
 
     const groupNames = result.map(row => row.group_name);
