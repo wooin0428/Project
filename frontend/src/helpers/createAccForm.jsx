@@ -16,7 +16,7 @@ export const createAccForm = () => {
 
   useEffect(() => {
     const loadGroups = async () => {
-      const groups = await fetchUserGroups();
+      const groups = await getUserGroup();
       setUserGroups(groups);
     };
     loadGroups();
