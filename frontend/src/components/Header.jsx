@@ -1,11 +1,17 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../helpers/logoutUser";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
-    <h3 className='header1'> 
-        this is the header    
-    </h3>
+    <div className="headerBar">
+      <h3>INFINITY CLEANERS</h3>
+      <div className="logoutbox">
+        <button onClick={() => logoutUser(navigate)}>Logout</button>
+      </div>
+    </div>
   );
 };
 
