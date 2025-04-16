@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../helpers/AuthLogin";
+import RedirectIfLoggedIn from "../helpers/RedirectIfLoggedIn";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -20,6 +21,7 @@ const Login = () => {
   };
 
   return (
+    <RedirectIfLoggedIn>
     <div style={{ backgroundColor: "#efeed8", padding: "2rem" }}>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
@@ -47,6 +49,7 @@ const Login = () => {
         <button type="submit">Log In</button>
       </form>
     </div>
+    </RedirectIfLoggedIn>
   );
 };
 
