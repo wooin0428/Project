@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { registerUser } from "./CreateAccHelper";
-import { getUserGroup } from "./getUserGroup";
+import { getAllUserGroups } from "./getAllUserGroups";
 
 export const createAccForm = () => {
   const [form, setForm] = useState({

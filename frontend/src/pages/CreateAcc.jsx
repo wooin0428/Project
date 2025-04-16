@@ -28,8 +28,8 @@ const CreateAcc = () => {
         <select name="usergroup" value={form.usergroup} onChange={handleChange} required>
           <option value="">Select a group</option>
           {userGroups.map((group) => (
-            <option key={group.usergroup_id} value={group.group_name}>
-              {group.group_name}
+            <option key={group} value={group}>
+              {group}
             </option>
           ))}
         </select>
