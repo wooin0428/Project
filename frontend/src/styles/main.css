@@ -1,5 +1,19 @@
 /* ----------------------------------------------
 
+universal page styling
+
+------------------------------------------------*/
+
+.headerBar
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+/* ----------------------------------------------
+
 Create Acc page styling
 
 ------------------------------------------------*/
@@ -7,171 +21,7 @@ Create Acc page styling
 
 .createAccForm
 {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-/* ----------------------------------------------
-UserGroupManage.jsx
-------------------------------------------------*/
-
-.user-group-container {
-    background-color: #efeed8;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .user-group-box {
-    background-color: white;
-    border: 3px solid gray;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 900px;
-    height: 500px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .group-button-container {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    padding: 0 50px;
-    margin-bottom: 40px;
-  }
-  
-  .group-button {
-    padding: 20px 40px;
-    font-size: 18px;
-    border: 2px solid gray;
-    border-radius: 10px;
-    background-color: white;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .group-button:hover {
-    background-color: #e6e6e6;
-  }
-  
-  .back-button-container {
-    margin-top: auto;
-  }
-  
-  .back-button {
-    padding: 10px 30px;
-    font-size: 16px;
-    border: 2px solid gray;
-    border-radius: 10px;
-    background-color: white;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .back-button:hover {
-    background-color: #e6e6e6;
-  }
-
-/* ----------------------------------------------
-CreateUserGroup.jsx Styling
-------------------------------------------------*/
-
-.create-group-container {
-    background-color: #efeed8;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .create-group-box {
-    background-color: white;
-    border: 3px solid gray;
-    border-radius: 10px;
-    width: 800px;
-    padding: 40px 50px;
-    box-sizing: border-box;
-  }
-  
-  .dashboard-title {
-    text-align: center;
-    font-size: 18px;
-    text-decoration: underline;
-    font-weight: bold;
-    margin-bottom: 30px;
-  }
-  
-  .page-title {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 30px;
-    border-bottom: 3px solid black;
-    width: fit-content;
-  }
-  
-  .create-group-form {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-  }
-  
-  .form-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-  }
-  
-  .form-row label {
-    width: 180px;
-    font-size: 16px;
-    font-weight: 500;
-    margin-top: 10px;
-  }
-  
-  .form-row input,
-  .form-row textarea {
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
-    border: 2px solid gray;
-    border-radius: 5px;
-    resize: none;
-  }
-  
-  .form-buttons {
-    margin-top: 40px;
-    display: flex;
-    justify-content: space-evenly;
-  }
-  
-  .create-button {
-    padding: 12px 40px;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: white;
-    color: black;
-    border: 2px solid gray;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .cancel-button {
-    padding: 12px 40px;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: white;
-    color: black;
-    border: 2px solid gray;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .header1 {
-    background-color: lightblue;
-    padding: 10px;
-  }
