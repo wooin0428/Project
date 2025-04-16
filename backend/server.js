@@ -85,6 +85,30 @@ app.post("/api/logout", (req, res) => {
 });
 
 
+// 👤  get user group from logged in user
+app.get("/api/getUserGroup", async (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ error: "Not logged in" });
+  }
+
+  const username = req.session.user.username;
+
+  try {
+    const result = await sql`
+      SELECT usergroup FROM useraccounts WHERE username = ${username}
+    `;
+    if (result.length > 0) {
+      res.json({ usergroup: result[0].usergroup });
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Something went wrong" });
+  }
+});
+
+
 
 
 

@@ -10,7 +10,7 @@ const Login = () => {
 		}}>
 
 		<h1>
-            Hello you are logged in
+            Hello you are logged in. your user group is: 
         </h1>
 
 		
