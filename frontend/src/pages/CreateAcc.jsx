@@ -1,25 +1,9 @@
-import React, { useState } from "react";
-import { registerUser } from "../helpers/CreateAccHelper";
+// pages/CreateAcc.jsx
+import React from "react";
+import { createAccForm } from "../helpers/createAccForm";
 
 const CreateAcc = () => {
-  const [form, setForm] = useState({
-    username: "",
-    emailadd: "",
-    password: "",
-    phone_number: "",
-    homeadd: "",
-    usergroup: ""
-  });
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const result = await registerUser(form);
-    alert(result.message);
-  };
+  const { form, userGroups, handleChange, handleSubmit } = createAccForm();
 
   return (
     <div id="b1" style={{ backgroundColor: "#efeed8", padding: "2rem" }}>
@@ -41,7 +25,14 @@ const CreateAcc = () => {
         <input name="homeadd" value={form.homeadd} onChange={handleChange} />
 
         <label>User Group:</label>
-        <input name="usergroup" value={form.usergroup} onChange={handleChange} />
+        <select name="usergroup" value={form.usergroup} onChange={handleChange} required>
+          <option value="">Select a group</option>
+          {userGroups.map((group) => (
+            <option key={group.usergroup_id} value={group.group_name}>
+              {group.group_name}
+            </option>
+          ))}
+        </select>
 
         <button type="submit" style={{ marginTop: "1rem" }}>Register</button>
       </form>
