@@ -55,23 +55,23 @@ app.post("/api/register", async (req, res) => {
 // 🔑 Login
 app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
-  const hashed = hashPassword(password);  // Hash password using your hash function
+  const hashed = hashPassword(password);
   
   const result = await sql`SELECT * FROM useraccounts WHERE username = ${username} AND password = ${hashed}`;
   
   if (result.length > 0) {
+    // Assuming 'usergroup' is a column in the useraccounts table
     const user = result[0]; // Get the user data from the query result
     req.session.user = {
       username: user.username,
       usergroup: user.usergroup,  // Include usergroup here
       sessionId: req.sessionID,   // Include session ID if needed
     };
-    res.json({ message: "Logged in!", user: req.session.user });  // Include user data in response
+    res.json({ message: "Logged in!" });
   } else {
     res.status(401).json({ error: "Invalid credentials" });
   }
 });
-
 
 
 
