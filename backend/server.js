@@ -209,7 +209,7 @@ app.get("/api/cleaners", async (req, res) => {
 
   try {
     const result = await sql`
-      SELECT cleaner_id, cleanername FROM cleaner
+      SELECT cleaner_id, cleanername FROM cleaner ORDER BY cleanername
     `;
 
     res.json(result);
