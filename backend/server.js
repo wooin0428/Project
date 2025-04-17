@@ -199,7 +199,49 @@ app.get("/api/getUsername", async (req, res) => {
 });
 
 
+// get cleaner info
+app.get("/api/cleaners", async (req, res) => {
+  // ✅ Check if user is logged in
+  if (!req.session.user) {
+    return res.status(401).json({ error: "Not logged in" });
+  }
 
+  try {
+    const result = await pool.query(`
+      SELECT cleaner_id, cleanername
+      FROM cleaner
+    `);
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error fetching cleaners:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+// Get a single cleaner's full details by cleaner_id
+app.get("/api/cleaners/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query(
+      `SELECT cleaner_id, cleanername, shortlistcount, experience, nationality, profileviewcount
+       FROM cleaner
+       WHERE cleaner_id = $1`,
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Cleaner not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("Error fetching cleaner details:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 
 

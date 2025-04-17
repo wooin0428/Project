@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import CreateAcc from "./pages/CreateAcc";
 import HoDashboard from "./pages/HoDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import CleanerDetailPage from "./pages/CleanerDetailPage";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -34,7 +35,17 @@ function App() {
                 <HoDashboard />
               </ProtectedRoute>
             }
-          />
+          >
+            {/* Cleaner detail page under /dashboard/homeowner */}
+            <Route
+              path="cleaners/:cleanerId"
+              element={
+                <ProtectedRoute allowedGroups={["HOMEOWNER"]}>
+                  <CleanerDetailPage />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
 
           <Route
             path="/dashboard/admin"
@@ -45,9 +56,8 @@ function App() {
             }
           />
 
-
           {!isApiRoute && (
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            <Route path="*name" element={<Navigate to="/dashboard" replace />} />
           )}
         </Routes>
         <Footer />
