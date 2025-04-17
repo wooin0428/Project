@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getSessionInfo } from "../helpers/getSessionInfo";
 import { getCleaners } from "../helpers/getCleaners";
+import { Outlet } from "react-router-dom";
 
 const HomeOwnerDashboard = () => {
   const [userGroup, setUserGroup] = useState("");
@@ -49,6 +50,7 @@ const HomeOwnerDashboard = () => {
           <p>No cleaners available</p>
         )}
       </div>
+      <Outlet />
     </div>
   );
 };

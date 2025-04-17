@@ -25,3 +25,22 @@ Create Acc page styling
   flex-direction: column;
 }
 
+
+/* ----------------------------------------------
+
+Homeowners dashboard page styling
+
+------------------------------------------------*/
+
+
+.cleanerListingCon
+{
+  display: flex;
+  justify-content: space-around;
+}
+
+.cleanerListingBox
+{
+  padding: 5px;
+  border: 1px solid darkslategrey;
+}
