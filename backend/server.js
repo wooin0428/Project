@@ -200,17 +200,26 @@ app.get("/api/getUsername", async (req, res) => {
 });
 
 
-// get cleaner info
+// GET /api/cleaners?search=someName
 app.get("/api/cleaners", async (req, res) => {
-  // ✅ Check if user is logged in
-  if (!req.session || !req.session.user || !req.session.id) {
-    return res.status(401).json({ error: "Not logged in" });
-  }
+  const search = req.query.search;
 
   try {
-    const result = await sql`
-      SELECT cleaner_id, cleanername FROM cleaner ORDER BY cleanername
-    `;
+    let result;
+    if (search) {
+      result = await sql`
+        SELECT cleaner_id, cleanername
+        FROM cleaner
+        WHERE cleanername ILIKE ${'%' + search + '%'}
+        ORDER BY cleaner_id ASC
+      `;
+    } else {
+      result = await sql`
+        SELECT cleaner_id, cleanername
+        FROM cleaner
+        ORDER BY cleaner_id ASC
+      `;
+    }
 
     res.json(result);
   } catch (err) {

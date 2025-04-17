@@ -26,4 +26,16 @@ const res = await fetch(`/api/cleaners/${cleanerId}`, {
 const data = await res.json();
 return data;
 };
+
+// search for cleaner by name
+export async function getCleaners(search = "") {
+  const res = await fetch(`/api/cleaners?search=${encodeURIComponent(search)}`, {
+    credentials: "include",
+  });
+
+  if (!res.ok) throw new Error("Failed to fetch cleaners");
+
+  return await res.json();
+}
+
   
