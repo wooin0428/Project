@@ -219,12 +219,19 @@ app.get("/api/cleaners", async (req, res) => {
   }
 });
 
-// Get a single cleaner's full details by cleaner_id
+// Get a single cleaner's full details by cleaner_id and increment profile view count
 app.get("/api/cleaners/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    // Parameterized query using tagged template
+    // First, increment the profileviewcount
+    await sql`
+      UPDATE cleaner
+      SET profileviewcount = profileviewcount + 1
+      WHERE cleaner_id = ${id}
+    `;
+
+    // Then, fetch the updated cleaner data
     const result = await sql`
       SELECT cleaner_id, cleanername, shortlistcount, experience, nationality, profileviewcount
       FROM cleaner
@@ -241,6 +248,7 @@ app.get("/api/cleaners/:id", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 
 
