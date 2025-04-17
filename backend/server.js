@@ -6,6 +6,9 @@ import { neon } from "@neondatabase/serverless";
 import session from "express-session";
 import crypto from "crypto";
 
+// Global in-memory store
+const activeSessions = new Map();
+
 // session class
 class UserSession {
   constructor(sessionID, username, usergroup) {
@@ -29,8 +32,6 @@ class UserSession {
 }
 
 
-// Global in-memory store
-const activeSessions = new Map();
 
 
 const app = express();
@@ -122,15 +123,20 @@ app.get("/api/session", (req, res) => {
 
 
 
-// 🧼 Logout
+// 🧼 Logout Route
 app.post("/api/logout", (req, res) => {
-  // Remove the session from the activeSessions map when logged out
+  if (!req.session || !req.session.id) {
+    return res.status(400).json({ error: "No active session" });
+  }
+
+  // Remove the session from activeSessions map
   activeSessions.delete(req.session.id);
 
   req.session.destroy(() => {
     res.json({ message: "Logged out!" });
   });
 });
+
 
 
 
