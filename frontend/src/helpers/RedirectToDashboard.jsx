@@ -1,45 +1,43 @@
+// src/helpers/RedirectToDashboard.jsx
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import UserSession from "../helpers/UserSession"; // Import UserSession
 
 const RedirectToDashboard = () => {
-  const [userSession, setUserSession] = useState(null); // Store UserSession object
+  const [userGroup, setUserGroup] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUserSession = async () => {
+    const fetchGroup = async () => {
       try {
-        const res = await fetch("/api/session", {
+        const res = await fetch("/api/getUserGroup", {
           credentials: "include",
         });
 
         if (!res.ok) throw new Error("Unauthorized");
 
         const data = await res.json();
-        // Instantiate UserSession with the fetched user data
-        const user = new UserSession(data.user);
-        setUserSession(user);
+        setUserGroup(data.usergroup);
       } catch (err) {
-        console.error("Not logged in or error fetching session");
-        setUserSession(null); // No user session, redirect to login
+        console.error("Not logged in or error fetching group");
+        setUserGroup("UNAUTHORIZED");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUserSession();
+    fetchGroup();
   }, []);
 
   if (loading) return <div>Loading...</div>;
 
-  // Handle unauthorized user (if no session found)
-  if (!userSession) return <Navigate to="/login" replace />;
+  // Handle unauthorized user
+  if (userGroup === "UNAUTHORIZED") return <Navigate to="/login" replace />;
 
   // Redirect based on user group
-  if (userSession.isHomeowner()) return <Navigate to="/dashboard/homeowner" replace />;
-  if (userSession.isAdmin()) return <Navigate to="/dashboard/admin" replace />;
+  if (userGroup === "HOMEOWNER") return <Navigate to="/dashboard/homeowner" replace />;
+  if (userGroup === "USER ADMIN") return <Navigate to="/dashboard/admin" replace />;
 
-  // Default fallback (if user doesn't belong to any expected group)
+  // Default fallback
   return <Navigate to="/login" replace />;
 };
 
