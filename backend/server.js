@@ -130,6 +130,19 @@ app.get("/api/getAllUserGroups", async (req, res) => {
 });
 
 
+// 👤 Get username from session
+app.get("/api/getUsername", async (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ error: "Not logged in" });
+  }
+
+  // Just return the username from the session
+  res.json({ username: req.session.user.username });
+});
+
+
+
+
 
 
 

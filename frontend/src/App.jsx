@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-
 import Login from "./pages/Login";
 import CreateAcc from "./pages/CreateAcc";
 import Dashboard from "./pages/Dashboard";
@@ -9,8 +8,10 @@ import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-import ProtectedRoute from "./helpers/checkSession";
+import HoDashboard from "./pages/HoDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 
+import ProtectedRoute from "./helpers/checkSession";
 
 function App() {
   const isApiRoute = window.location.pathname.startsWith("/api");
@@ -22,9 +23,30 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/createAcc" element={<CreateAcc />} />
-          <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
 
-          {/* Only add the catch-all route if not an API request */}
+          {/* Redirects user based on their usergroup */}
+          <Route path="/dashboard" element={<ProtectedRoute />} />
+
+          {/* Actual dashboard views by role */}
+          <Route
+            path="/dashboard/homeowner"
+            element={
+              <ProtectedRoute allowedGroups={["HOMEOWNER"]}>
+                <HoDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard/admin"
+            element={
+              <ProtectedRoute allowedGroups={["USER ADMIN"]}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+
           {!isApiRoute && (
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           )}
@@ -34,6 +56,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;

@@ -1,28 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = ({ children }) => {
+export default function ProtectedRoute({ children, allowedGroups }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
-    fetch("/api/session", {
-      credentials: "include", // crucial for session cookies
-    })
-      .then(res => res.json())
-      .then(data => {
-        setLoggedIn(data.loggedIn);
+    const checkSession = async () => {
+      try {
+        const res = await fetch("/api/getUserGroup", {
+          credentials: "include",
+        });
+
+        if (!res.ok) throw new Error("Unauthorized");
+
+        const data = await res.json();
+        if (allowedGroups.includes(data.usergroup)) {
+          setAuthorized(true);
+        }
+      } catch (err) {
+        console.error("Access denied:", err);
+      } finally {
         setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-        setLoggedIn(false);
-      });
-  }, []);
+      }
+    };
 
-  if (isLoading) return <p>Loading...</p>;
+    checkSession();
+  }, [allowedGroups]);
 
-  return loggedIn ? children : <Navigate to="/login" replace />;
-};
+  if (isLoading) return <div>Loading...</div>;
+  if (!authorized) return <Navigate to="/login" replace />;
 
-export default ProtectedRoute;
+  return children;
+}
