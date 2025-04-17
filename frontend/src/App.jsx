@@ -57,7 +57,7 @@ function App() {
           />
 
           {!isApiRoute && (
-            <Route path="*name" element={<Navigate to="/dashboard" replace />} />
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
           )}
         </Routes>
         <Footer />
