@@ -107,7 +107,7 @@ app.post("/api/login", async (req, res) => {
 
 // check sessions
 app.get("/api/session", (req, res) => {
-  console.log('debugging the Session:', req.session);
+  console.log('debugging the Session fir session:', req.session);
   if (!req.session || !req.session.user || !req.session.id) {
     return res.status(401).json({ error: "Not logged in" });
   }
@@ -203,9 +203,9 @@ app.get("/api/getUsername", async (req, res) => {
 
 // get cleaner info
 app.get("/api/cleaners", async (req, res) => {
-  console.log('debugging the Session:', req.session);
+  console.log('debugging the Session for cleaners:', req.session);
   // ✅ Check if user is logged in
-  if (!req.session.user) {
+  if (!req.session || !req.session.user || !req.session.id) {
     return res.status(401).json({ error: "Not logged in" });
   }
 
