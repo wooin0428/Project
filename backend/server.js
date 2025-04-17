@@ -224,10 +224,11 @@ app.get("/api/cleaners/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
+    // Parameterized query using tagged template
     const result = await sql`
       SELECT cleaner_id, cleanername, shortlistcount, experience, nationality, profileviewcount
       FROM cleaner
-      WHERE cleaner_id = ${id}  // Parameterized query within tagged template
+      WHERE cleaner_id = ${id}
     `;
 
     if (result.length === 0) {
@@ -240,6 +241,7 @@ app.get("/api/cleaners/:id", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 
 
