@@ -39,7 +39,7 @@ function App() {
           >
             {/* Cleaner detail page under /dashboard/homeowner */}
             <Route
-              path="cleaners/:cleanerId"
+              path=":cleanerId"
               element={
                 <ProtectedRoute allowedGroups={["HOMEOWNER"]}>
                   <CleanerDetailPage />

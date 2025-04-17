@@ -50,7 +50,7 @@ const HomeOwnerDashboard = () => {
           <p>No cleaners available</p>
         )}
       </div>
-      <Outlet />
+      
     </div>
   );
 };
