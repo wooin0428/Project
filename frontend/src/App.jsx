@@ -36,17 +36,16 @@ function App() {
                 <HoDashboard />
               </ProtectedRoute>
             }
-          >
-            {/* Cleaner detail page under /dashboard/homeowner */}
-            <Route
-              path=":cleanerId"
-              element={
-                <ProtectedRoute allowedGroups={["HOMEOWNER"]}>
-                  <CleanerDetailPage />
-                </ProtectedRoute>
-              }
-            />
-          </Route>
+          />
+          
+          <Route
+            path="/dashboard/homeowner/:cleanerId"
+            element={
+              <ProtectedRoute allowedGroups={["HOMEOWNER"]}>
+                <CleanerDetailPage />
+              </ProtectedRoute>
+            }
+          />
 
           <Route
             path="/dashboard/admin"
