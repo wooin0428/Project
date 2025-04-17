@@ -30,7 +30,7 @@ const HomeOwnerDashboard = () => {
 
   const handleViewCleaner = (cleanerId) => {
     // Navigate to the cleaner detail page using cleaner ID
-    navigate(`/dashboard/homeowner/cleaners/${cleanerId}`);
+    navigate(`/dashboard/homeowner/${cleanerId}`);
   };
 
   return (
