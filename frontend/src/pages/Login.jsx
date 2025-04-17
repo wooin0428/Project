@@ -15,16 +15,20 @@ const Login = () => {
         const res = await fetch("/api/session", {
           credentials: "include",
         });
+  
+        if (!res.ok) return; // Not logged in
+  
         const data = await res.json();
-
-        if (data.loggedIn) {
+  
+        // If session exists, redirect
+        if (data.username && data.usergroup) {
           navigate("/dashboard");
         }
       } catch (err) {
         console.error("Session check failed:", err);
       }
     };
-
+  
     checkSession();
   }, [navigate]);
 
