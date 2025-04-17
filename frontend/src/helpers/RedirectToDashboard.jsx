@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import UserSession from "../classes/UserSession"; // Import UserSession
+import UserSession from "../helpers/UserSession"; // Import UserSession
 
 const RedirectToDashboard = () => {
   const [userSession, setUserSession] = useState(null); // Store UserSession object

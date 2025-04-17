@@ -6,7 +6,6 @@ export async function logoutUser(navigate) {
       });
   
       if (res.ok) {
-        localStorage.removeItem("userSession");
         navigate("/login");
       } else {
         console.error("Logout failed");
