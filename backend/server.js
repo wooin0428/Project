@@ -212,7 +212,7 @@ app.get("/api/cleaners", async (req, res) => {
       SELECT cleaner_id, cleanername
       FROM cleaner
     `;
-    console.log("Fetched cleaners:", result.rows);  // Log the result here
+    console.log("Fetched cleaners:", result);  // Log the result here
 
     res.json(result.rows);
   } catch (err) {
