@@ -6,12 +6,31 @@ import { neon } from "@neondatabase/serverless";
 import session from "express-session";
 import crypto from "crypto";
 
+// session class
+class UserSession {
+  constructor(sessionID, username, usergroup) {
+    this.sessionID = sessionID;
+    this.username = username;
+    this.usergroup = usergroup;
+  }
+
+  isAdmin() {
+    return this.usergroup === "admin";
+  }
+}
+
+// Global in-memory store
+const activeSessions = new Map();
+
+
 const app = express();
 const PORT = process.env.PORT || 8080;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const sql = neon(process.env.DATABASE_URL);
+
+
 
 // Parse JSON and URL-encoded data
 app.use(express.json());
@@ -56,14 +75,32 @@ app.post("/api/register", async (req, res) => {
 app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
   const hashed = hashPassword(password);
-  const result = await sql`SELECT * FROM useraccounts WHERE username = ${username} AND password = ${hashed}`;
-  if (result.length > 0) {
-    req.session.user = { username };
-    res.json({ message: "Logged in!" });
-  } else {
-    res.status(401).json({ error: "Invalid credentials" });
+
+  try {
+    const result = await sql`
+      SELECT * FROM useraccounts 
+      WHERE username = ${username} AND password = ${hashed}
+    `;
+
+    if (result.length > 0) {
+      const user = result[0];
+      const sessionID = req.sessionID;
+      req.session.user = { username };
+
+      // create & store UserSession
+      const userSession = new UserSession(sessionID, user.username, user.usergroup);
+      activeSessions.set(sessionID, userSession);
+
+      res.json({ message: "Logged in!" });
+    } else {
+      res.status(401).json({ error: "Invalid credentials" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Login failed" });
   }
 });
+
 
 
 // check sessions
@@ -79,10 +116,12 @@ app.get("/api/session", (req, res) => {
 
 // 🧼 Logout
 app.post("/api/logout", (req, res) => {
+  activeSessions.delete(req.sessionID);
   req.session.destroy(() => {
     res.json({ message: "Logged out!" });
   });
 });
+
 
 
 // 👤  get user group from logged in user
