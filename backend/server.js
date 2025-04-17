@@ -207,12 +207,10 @@ app.get("/api/cleaners", async (req, res) => {
   }
 
   try {
-    
     const result = await sql`
       SELECT cleaner_id, cleanername
       FROM cleaner
     `;
-
     res.json(result.rows);
   } catch (err) {
     console.error("Error fetching cleaners:", err);
@@ -220,20 +218,16 @@ app.get("/api/cleaners", async (req, res) => {
   }
 });
 
-
 // Get a single cleaner's full details by cleaner_id
 app.get("/api/cleaners/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    
     const result = await sql`
       SELECT cleaner_id, cleanername, shortlistcount, experience, nationality, profileviewcount
-       FROM cleaner
-       WHERE cleaner_id = $1`,
-      [id];
-
-    
+      FROM cleaner
+      WHERE cleaner_id = ${id}  // Parameterized query within tagged template
+    `;
 
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "Cleaner not found" });
@@ -245,6 +239,7 @@ app.get("/api/cleaners/:id", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 
 
