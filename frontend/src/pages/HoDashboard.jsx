@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { getUserGroup } from "../helpers/getUserGroup";
-import { getUsername } from "../helpers/getUsername";
+import { getSessionInfo } from "../helpers/getSessionInfo";
 
-const HoDashboard = () => {
+const AdminDashboard = () => {
   const [userGroup, setUserGroup] = useState("");
   const [username, setUsername] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
-      const group = await getUserGroup();
-      const name = await getUsername();
-      setUserGroup(group);
-      setUsername(name);
+      try {
+        const { username, usergroup } = await getSessionInfo();
+        setUsername(username);
+        setUserGroup(usergroup);
+      } catch (err) {
+        console.error(err);
+      }
     };
     fetchData();
   }, []);
@@ -21,14 +23,13 @@ const HoDashboard = () => {
       <h1>Hello, {username} — you are at {userGroup} dashboard</h1>
       <div className="cleanerListingCon">
         <div className="cleanerListingBox">
-          <h2> CLEANER NAME </h2>
-          <div className="view-button">
-            view more
-          </div>
+          MARIA
+          <br></br>
+          VIEW MORE
         </div>
       </div>
     </div>
   );
 };
 
-export default HoDashboard;
+export default AdminDashboard;

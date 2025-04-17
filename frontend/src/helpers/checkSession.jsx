@@ -8,13 +8,14 @@ export default function ProtectedRoute({ children, allowedGroups }) {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const res = await fetch("/api/getUserGroup", {
+        const res = await fetch("/api/sessionInfo", {
           credentials: "include",
         });
 
         if (!res.ok) throw new Error("Unauthorized");
 
         const data = await res.json();
+
         if (allowedGroups.includes(data.usergroup)) {
           setAuthorized(true);
         }

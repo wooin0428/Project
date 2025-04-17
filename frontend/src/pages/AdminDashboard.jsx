@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getUserGroup } from "../helpers/getUserGroup";
-import { getUsername } from "../helpers/getUsername";
+import { getSessionInfo } from "../helpers/getSessionInfo";
 
 const AdminDashboard = () => {
   const [userGroup, setUserGroup] = useState("");
@@ -8,10 +7,13 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const group = await getUserGroup();
-      const name = await getUsername();
-      setUserGroup(group);
-      setUsername(name);
+      try {
+        const { username, usergroup } = await getSessionInfo();
+        setUsername(username);
+        setUserGroup(usergroup);
+      } catch (err) {
+        console.error(err);
+      }
     };
     fetchData();
   }, []);
@@ -19,10 +21,7 @@ const AdminDashboard = () => {
   return (
     <div id="b1" style={{ backgroundColor: '#efeed8' }}>
       <h1>Hello, {username} — you are at {userGroup} dashboard</h1>
-      <div className="cleanerListingCon">
-       
-
-      </div>
+      <div className="cleanerListingCon"></div>
     </div>
   );
 };
