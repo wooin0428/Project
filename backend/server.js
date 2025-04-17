@@ -50,12 +50,13 @@ app.use(express.urlencoded({ extended: true }));
 // Use express-session
 app.use(
   session({
-    secret: "a_very_secret_key", // Change this for production
+    secret: 'ultra-secret-key',
     resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false }, // http only ?
+    saveUninitialized: true,
+    cookie: { secure: false, httpOnly: true }, // Use `secure: true` for HTTPS
   })
 );
+
 
 // Utility function for SHA256 hash
 function hashPassword(password) {
@@ -106,6 +107,7 @@ app.post("/api/login", async (req, res) => {
 
 // check sessions
 app.get("/api/session", (req, res) => {
+  console.log('debugging the Session:', req.session);
   if (!req.session || !req.session.user || !req.session.id) {
     return res.status(401).json({ error: "Not logged in" });
   }
@@ -201,6 +203,7 @@ app.get("/api/getUsername", async (req, res) => {
 
 // get cleaner info
 app.get("/api/cleaners", async (req, res) => {
+  console.log('debugging the Session:', req.session);
   // ✅ Check if user is logged in
   if (!req.session.user) {
     return res.status(401).json({ error: "Not logged in" });
