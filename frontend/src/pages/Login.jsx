@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../helpers/AuthLogin";
 
@@ -7,6 +7,26 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
+
+  // ✅ Check if already logged in using /api/session
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const res = await fetch("/api/session", {
+          credentials: "include",
+        });
+        const data = await res.json();
+
+        if (data.loggedIn) {
+          navigate("/dashboard");
+        }
+      } catch (err) {
+        console.error("Session check failed:", err);
+      }
+    };
+
+    checkSession();
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +40,6 @@ const Login = () => {
   };
 
   return (
-    <RedirectIfLoggedIn>
     <div style={{ backgroundColor: "#efeed8", padding: "2rem" }}>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
@@ -48,7 +67,6 @@ const Login = () => {
         <button type="submit">Log In</button>
       </form>
     </div>
-    </RedirectIfLoggedIn>
   );
 };
 
