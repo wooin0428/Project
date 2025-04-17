@@ -4,14 +4,14 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Login from "./pages/Login";
 import CreateAcc from "./pages/CreateAcc";
 import Dashboard from "./pages/Dashboard";
+import HoDashboard from "./pages/HoDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-import HoDashboard from "./pages/HoDashboard";
-import AdminDashboard from "./pages/AdminDashboard";
-
 import ProtectedRoute from "./helpers/checkSession";
+import RedirectToDashboard from "./helpers/RedirectToDashboard";
 
 function App() {
   const isApiRoute = window.location.pathname.startsWith("/api");
@@ -25,7 +25,7 @@ function App() {
           <Route path="/createAcc" element={<CreateAcc />} />
 
           {/* Redirects user based on their usergroup */}
-          <Route path="/dashboard" element={<ProtectedRoute />} />
+          <Route path="/dashboard" element={<RedirectToDashboard />} />
 
           {/* Actual dashboard views by role */}
           <Route
