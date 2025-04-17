@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../helpers/AuthLogin";
+import UserSession from "../classes/UserSession"; // Import UserSession
 
 const Login = () => {
   const [username, setUsername] = useState("");
