@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 
 import Login from "./pages/Login";
 import CreateAcc from "./pages/CreateAcc";
-import Dashboard from "./pages/Dashboard";
 import HoDashboard from "./pages/HoDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 
