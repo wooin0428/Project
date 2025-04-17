@@ -9,7 +9,7 @@ const RedirectToDashboard = () => {
   useEffect(() => {
     const fetchGroup = async () => {
       try {
-        const res = await fetch("/api/getUserGroup", {
+        const res = await fetch("/api/session", {
           credentials: "include",
         });
 
