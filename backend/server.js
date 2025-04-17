@@ -209,12 +209,10 @@ app.get("/api/cleaners", async (req, res) => {
 
   try {
     const result = await sql`
-      SELECT cleaner_id, cleanername
-      FROM cleaner
+      SELECT cleaner_id, cleanername FROM cleaner
     `;
-    console.log("Fetched cleaners:", result);  // Log the result here
 
-    res.json(result.rows);
+    res.json(result);
   } catch (err) {
     console.error("Error fetching cleaners:", err);
     res.status(500).json({ error: "Internal Server Error" });
@@ -232,11 +230,11 @@ app.get("/api/cleaners/:id", async (req, res) => {
       WHERE cleaner_id = ${id}  // Parameterized query within tagged template
     `;
 
-    if (result.rows.length === 0) {
+    if (result.length === 0) {
       return res.status(404).json({ error: "Cleaner not found" });
     }
 
-    res.json(result.rows[0]);
+    res.json(result[0]);
   } catch (err) {
     console.error("Error fetching cleaner details:", err);
     res.status(500).json({ error: "Internal Server Error" });
