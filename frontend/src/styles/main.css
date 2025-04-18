@@ -4,11 +4,25 @@ universal page styling
 
 ------------------------------------------------*/
 
+*
+{
+  padding: none;
+  border: none;
+  margin:none;
+}
+
 .headerBar
 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-family: 'Roboto';
+}
+
+.footerCon
+{
+  color: grey;
+  text-align: center;
 }
 
 
