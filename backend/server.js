@@ -258,6 +258,24 @@ app.get("/api/cleaners/:id", async (req, res) => {
   }
 });
 
+// get specified cleaner's cleaning service
+app.get("/api/cleaners/:cleanerId/services", async (req, res) => {
+  const { cleanerId } = req.params;
+
+  try {
+    const services = await sql`
+      SELECT service_id, servicename, servicetype, description, hourlyrate,
+             monday, tuesday, wednesday, thursday, friday, saturday, sunday
+      FROM cleanerservices
+      WHERE cleaner_id = ${cleanerId}
+    `;
+
+    res.json({ services });
+  } catch (err) {
+    console.error("Error fetching cleaner services:", err);
+    res.status(500).json({ error: "Failed to fetch cleaner services" });
+  }
+});
 
 
 
