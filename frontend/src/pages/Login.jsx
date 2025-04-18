@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Avatar, Button, TextField, Box, Typography, Container, Alert } from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../helpers/AuthLogin";
 
@@ -8,19 +10,17 @@ const Login = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
-  // ✅ Check if already logged in using /api/session
   useEffect(() => {
     const checkSession = async () => {
       try {
         const res = await fetch("/api/session", {
           credentials: "include",
         });
-  
-        if (!res.ok) return; // Not logged in
-  
+
+        if (!res.ok) return;
+
         const data = await res.json();
-  
-        // If session exists, redirect
+
         if (data.username && data.usergroup) {
           navigate("/dashboard");
         }
@@ -28,7 +28,7 @@ const Login = () => {
         console.error("Session check failed:", err);
       }
     };
-  
+
     checkSession();
   }, [navigate]);
 
@@ -44,33 +44,59 @@ const Login = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#efeed8", padding: "2rem" }}>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
-        <label>
-          Username:
-          <input
-            type="text"
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+
+        {errorMsg && <Alert severity="error" sx={{ mt: 2 }}>{errorMsg}</Alert>}
+
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            label="Username"
+            autoComplete="username"
             value={username}
-            required
             onChange={(e) => setUsername(e.target.value)}
+            autoFocus
           />
-        </label>
-        <br /><br />
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
+
+          <TextField
+            margin="normal"
             required
+            fullWidth
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </label>
-        <br /><br />
-        <button type="submit">Log In</button>
-      </form>
-    </div>
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign In
+          </Button>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 
