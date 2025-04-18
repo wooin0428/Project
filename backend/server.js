@@ -289,7 +289,7 @@ app.post("/api/shortlist", async (req, res) => {
   try {
     // Get homeowner_id from username
     const result = await sql`
-      SELECT homeowner_id FROM homeowners WHERE username = ${username}
+      SELECT homeowner_id FROM homeowner WHERE username = ${username}
     `;
 
     if (result.length === 0) {
