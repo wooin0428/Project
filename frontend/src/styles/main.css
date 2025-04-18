@@ -6,13 +6,26 @@ universal page styling
 
 
 
-.headerBar
-{
+.headerBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: 'Roboto';
+  padding: 1rem;
 }
+
+.headerTitle {
+  margin: 0;
+}
+
+.logoutIconButton {
+  background-color: #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+.logoutIconButton:hover {
+  background-color: #e0e0e0;
+}
+
 
 .footerCon
 {

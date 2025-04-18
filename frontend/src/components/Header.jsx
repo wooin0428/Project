@@ -1,29 +1,30 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { logoutUser } from "../helpers/logoutUser";
-import Button from "@mui/material/Button";
+import { IconButton, Tooltip } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Hide logout button if user is on login page
   const isLoginPage = location.pathname === "/login";
 
   return (
     <div className="headerBar">
-      <h3>INFINITY CLEANERS</h3>
-      <div className="logoutbox">
-        {!isLoginPage && (
-          <Button
-            variant="contained"
-            color="secondary"
+      <h3 className="headerTitle">INFINITY CLEANERS</h3>
+      {!isLoginPage && (
+        <Tooltip title="Logout">
+          <IconButton
+            className="logoutIconButton"
             onClick={() => logoutUser(navigate)}
+            color="secondary"
           >
-            Logout
-          </Button>
-        )}
-      </div>
+            <LogoutIcon />
+          </IconButton>
+        </Tooltip>
+      )}
     </div>
   );
 };
