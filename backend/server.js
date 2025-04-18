@@ -167,26 +167,37 @@ app.get("/api/getUserGroup", async (req, res) => {
 
 
 
-
-// 👥 Get all user group names (requires login)
-app.get("/api/getAllUserGroups", async (req, res) => {
-  if (!req.session.user) {
-    return res.status(401).json({ error: "Not logged in" });
-  }
-
+// get all users
+app.get("/api/getAllUsers", async (req, res) => {
   try {
-    const result = await sql`
-      SELECT group_name FROM usergroups
+    const users = await sql`
+      SELECT useraccount_id, username, usergroup
+      FROM useraccounts
     `;
-
-    const groupNames = result.map(row => row.group_name);
-
-    res.json(groupNames); // Example: ["admin", "manager", "cleaner"]
+    res.json(users);
   } catch (err) {
-    console.error("Failed to fetch user groups:", err);
-    res.status(500).json({ error: "Something went wrong" });
+    console.error("Error fetching users:", err);
+    res.status(500).json({ error: "Failed to fetch users" });
   }
 });
+
+// delete specified user
+app.delete("/api/deleteUser/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await sql`
+      DELETE FROM useraccounts
+      WHERE useraccount_id = ${id}
+    `;
+    res.json({ message: "User deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting user:", err);
+    res.status(500).json({ error: "Failed to delete user" });
+  }
+});
+
+
 
 
 // 👤 Get username from session
