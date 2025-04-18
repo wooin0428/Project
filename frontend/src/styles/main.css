@@ -11,6 +11,7 @@ universal page styling
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  font-family: 'Roboto';
 }
 
 .headerTitle {
