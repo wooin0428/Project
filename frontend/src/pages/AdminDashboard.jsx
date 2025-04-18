@@ -14,7 +14,7 @@ const AdminDashboard = () => {
         setUsername(username);
         setUserGroup(usergroup);
 
-        const res = await fetch("/api/users");
+        const res = await fetch("/api/getAllUsers");
         const data = await res.json();
         setUsers(data);
       } catch (err) {
