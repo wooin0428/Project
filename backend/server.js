@@ -277,7 +277,49 @@ app.get("/api/cleaners/:cleanerId/services", async (req, res) => {
   }
 });
 
+//  user add cleaner to their shortlist
+app.post("/api/shortlist", async (req, res) => {
+  const { cleaner_id } = req.body;
+  const username = req.session.user?.username;
 
+  if (!username) {
+    return res.status(401).json({ error: "Not authenticated" });
+  }
+
+  try {
+    // Get homeowner_id from username
+    const result = await sql`
+      SELECT homeowner_id FROM homeowners WHERE username = ${username}
+    `;
+
+    if (result.length === 0) {
+      return res.status(404).json({ error: "Homeowner not found" });
+    }
+
+    const homeowner_id = result[0].homeowner_id;
+
+    // Prevent duplicate shortlists
+    const exists = await sql`
+      SELECT * FROM shortlisted_cleaner
+      WHERE homeowner_id = ${homeowner_id} AND cleaner_id = ${cleaner_id}
+    `;
+
+    if (exists.length > 0) {
+      return res.status(400).json({ error: "Cleaner already shortlisted" });
+    }
+
+    // Insert into shortlist table
+    await sql`
+      INSERT INTO shortlisted_cleaner (homeowner_id, cleaner_id)
+      VALUES (${homeowner_id}, ${cleaner_id})
+    `;
+
+    res.json({ message: "Cleaner shortlisted!" });
+  } catch (err) {
+    console.error("Shortlist error:", err);
+    res.status(500).json({ error: "Failed to shortlist cleaner" });
+  }
+});
 
 
 

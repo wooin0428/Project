@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getSessionInfo } from "../helpers/getSessionInfo";
 import { getCleaners } from "../helpers/getCleaners";
+import { shortlistCleaner } from "../helpers/shortlistCleaner";
 
 const HomeOwnerDashboard = () => {
   const [userGroup, setUserGroup] = useState("");
@@ -43,6 +44,15 @@ const HomeOwnerDashboard = () => {
     navigate(`/dashboard/homeowner/${cleanerId}`);
   };
 
+  const handleShortlist = async (cleanerId) => {
+    const result = await shortlistCleaner(cleanerId);
+    if (result.success) {
+      alert("Cleaner added to shortlist!");
+    } else {
+      alert(result.error);
+    }
+  };
+
   return (
     <div id="b1" style={{ backgroundColor: '#efeed8' }}>
       <h1>Hello, {username} — you are at {userGroup} dashboard</h1>
@@ -64,6 +74,9 @@ const HomeOwnerDashboard = () => {
               <h3>{cleaner.cleanername}</h3>
               <button onClick={() => handleViewCleaner(cleaner.cleaner_id)}>
                 View Details
+              </button>
+              <button onClick={() => handleShortlist(cleaner.cleaner_id)}>
+                Shortlist
               </button>
             </div>
           ))
