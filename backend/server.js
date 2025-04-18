@@ -287,15 +287,7 @@ app.post("/api/shortlist", async (req, res) => {
   }
 
   try {
-    // Get homeowner_id from username
-    const result = await sql`
-      SELECT homeowner_id FROM homeowner WHERE username = ${username}
-    `;
-
-    if (result.length === 0) {
-      return res.status(404).json({ error: "Homeowner not found" });
-    }
-
+    
     const homeowner_id = result[0].homeowner_id;
 
     // Prevent duplicate shortlists
