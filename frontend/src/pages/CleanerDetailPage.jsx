@@ -60,7 +60,7 @@ const CleanerDetailPage = () => {
                   <td>{service.servicename}</td>
                   <td>{service.servicetype}</td>
                   <td>{service.description}</td>
-                  <td>{service.hourlyrate.toFixed(2)}</td>
+                  <td>{Number(service.hourlyrate).toFixed(2)}</td>
                   <td>{days || "None"}</td>
                 </tr>
               );
