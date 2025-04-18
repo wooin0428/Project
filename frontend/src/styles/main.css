@@ -4,12 +4,7 @@ universal page styling
 
 ------------------------------------------------*/
 
-*
-{
-  padding: none;
-  border: none;
-  margin:none;
-}
+
 
 .headerBar
 {
@@ -21,6 +16,7 @@ universal page styling
 
 .footerCon
 {
+  font-family: 'Roboto';
   color: grey;
   text-align: center;
 }

@@ -4,6 +4,18 @@ import { getSessionInfo } from "../helpers/getSessionInfo";
 import { getCleaners } from "../helpers/getCleaners";
 import { shortlistCleaner } from "../helpers/shortlistCleaner";
 
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  CardActions,
+  Grid,
+  Box,
+} from "@mui/material";
+
 const HomeOwnerDashboard = () => {
   const [userGroup, setUserGroup] = useState("");
   const [username, setUsername] = useState("");
@@ -54,37 +66,60 @@ const HomeOwnerDashboard = () => {
   };
 
   return (
-    <div id="b1" style={{ backgroundColor: '#efeed8' }}>
-      <h1>Hello, {username} — you are at {userGroup} dashboard</h1>
+    <Container sx={{ py: 4 }}>
+      <Typography variant="h4" gutterBottom>
+        Hello, {username} — you are at {userGroup} dashboard
+      </Typography>
 
-      <form onSubmit={handleSearch}>
-        <input
-          type="text"
-          placeholder="Search cleaner name..."
+      <Box component="form" onSubmit={handleSearch} sx={{ mb: 4, display: "flex", gap: 2 }}>
+        <TextField
+          label="Search cleaner name"
+          variant="outlined"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          fullWidth
         />
-        <button type="submit">Search</button>
-      </form>
+        <Button type="submit" variant="contained" color="primary">
+          Search
+        </Button>
+      </Box>
 
-      <div className="cleanerListingCon">
+      <Grid container spacing={3}>
         {cleaners.length > 0 ? (
           cleaners.map((cleaner) => (
-            <div key={cleaner.cleaner_id} className="cleanerListingBox">
-              <h3>{cleaner.cleanername}</h3>
-              <button onClick={() => handleViewCleaner(cleaner.cleaner_id)}>
-                View Details
-              </button>
-              <button onClick={() => handleShortlist(cleaner.cleaner_id)}>
-                Shortlist
-              </button>
-            </div>
+            <Grid item xs={12} sm={6} md={4} key={cleaner.cleaner_id}>
+              <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <CardContent>
+                  <Typography variant="h6" component="div">
+                    {cleaner.cleanername}
+                  </Typography>
+                </CardContent>
+                <CardActions sx={{ justifyContent: "space-between", px: 2, pb: 2 }}>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={() => handleViewCleaner(cleaner.cleaner_id)}
+                  >
+                    View Details
+                  </Button>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    onClick={() => handleShortlist(cleaner.cleaner_id)}
+                  >
+                    Shortlist
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
           ))
         ) : (
-          <p>No cleaners found</p>
+          <Grid item xs={12}>
+            <Typography>No cleaners found</Typography>
+          </Grid>
         )}
-      </div>
-    </div>
+      </Grid>
+    </Container>
   );
 };
 
