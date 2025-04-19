@@ -59,12 +59,13 @@ const AdminDashboard = () => {
       </div>
 
       <Paper elevation={3}>
-        <Typography variant="h1" className="admin-table-heading">All User Accounts</Typography>
+        <Typography className="admin-table-heading">All User Accounts</Typography>
         <Button
             className="admin-add-button"
             variant="contained"
             color="success"
             onClick={() => navigate("/createAcc")}
+            sx={{ margin: "1rem" }}
           >
             + Add User
         </Button>
