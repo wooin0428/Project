@@ -13,11 +13,15 @@ import {
 } from "@mui/material";
 import { getSessionInfo } from "../helpers/getSessionInfo";
 import { deleteUserById } from "../helpers/deleteUser";
+import { useNavigate } from "react-router-dom";
+
 
 const AdminDashboard = () => {
   const [userGroup, setUserGroup] = useState("");
   const [username, setUsername] = useState("");
   const [users, setUsers] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,9 +59,9 @@ const AdminDashboard = () => {
       </div>
 
       <Paper elevation={3}>
-        <Typography className="admin-table-heading">All User Accounts</Typography>
+        <Typography variant="h1" className="admin-table-heading">All User Accounts</Typography>
         <Button
-          className="admin-add-button"
+            className="admin-add-button"
             variant="contained"
             color="success"
             onClick={() => navigate("/createAcc")}

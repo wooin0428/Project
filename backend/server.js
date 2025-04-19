@@ -235,7 +235,6 @@ app.get("/api/getUsername", async (req, res) => {
 // GET /api/cleaners?search=someName
 app.get("/api/cleaners", async (req, res) => {
   const search = req.query.search;
-
   try {
     let result;
     if (search) {
