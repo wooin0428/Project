@@ -16,6 +16,7 @@ import {
   Box,
 } from "@mui/material";
 
+
 const HomeOwnerDashboard = () => {
   const [userGroup, setUserGroup] = useState("");
   const [username, setUsername] = useState("");
@@ -66,12 +67,12 @@ const HomeOwnerDashboard = () => {
   };
 
   return (
-    <Container sx={{ py: 4 }}>
-      <Typography variant="h4" gutterBottom>
+    <Container className="homeowner-dashboard">
+      <Typography variant="h4" className="dashboard-heading">
         Hello, {username} — you are at {userGroup} dashboard
       </Typography>
 
-      <Box component="form" onSubmit={handleSearch} sx={{ mb: 4, display: "flex", gap: 2 }}>
+      <Box component="form" onSubmit={handleSearch} className="cleaner-search-form">
         <TextField
           label="Search cleaner name"
           variant="outlined"
@@ -88,13 +89,13 @@ const HomeOwnerDashboard = () => {
         {cleaners.length > 0 ? (
           cleaners.map((cleaner) => (
             <Grid item xs={12} sm={6} md={4} key={cleaner.cleaner_id}>
-              <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+              <Card className="cleaner-card">
                 <CardContent>
                   <Typography variant="h6" component="div">
                     {cleaner.cleanername}
                   </Typography>
                 </CardContent>
-                <CardActions sx={{ justifyContent: "space-between", px: 2, pb: 2 }}>
+                <CardActions className="cleaner-card-actions">
                   <Button
                     size="small"
                     variant="outlined"
