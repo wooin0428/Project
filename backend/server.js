@@ -61,7 +61,9 @@ app.use(
 // Utility function for SHA256 hash
 function hashPassword(password) {
   const hash = crypto.createHash("sha256").update(password).digest("hex");
-  return hash.slice(0, 40); // truncate to 40 chars
+  return hash; // truncate to 40 chars
+  // return hash.slice(0, 40); // truncate to 40 chars
+
 }
 
 // 🚪 Register
