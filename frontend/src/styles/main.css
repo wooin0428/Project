@@ -69,3 +69,44 @@ Homeowners dashboard page styling
   padding: 5px;
   border: 1px solid darkslategrey;
 }
+
+
+
+
+
+
+
+
+/* ----------------------------------------------
+
+Admin dashboard page styling
+
+------------------------------------------------*/
+
+.admin-dashboard {
+  background-color: #efeed8;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.admin-heading {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.admin-menu {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-table-container {
+  padding: 1rem;
+}
+
+.admin-table-heading {
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}

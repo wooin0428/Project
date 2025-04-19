@@ -1,4 +1,16 @@
 import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Typography,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import { getSessionInfo } from "../helpers/getSessionInfo";
 import { deleteUserById } from "../helpers/deleteUser";
 
@@ -32,54 +44,66 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div id="b1" style={{ backgroundColor: "#efeed8", padding: "2rem" }}>
-      <h1>
-        Hello, {username} — you are at {userGroup} dashboard
-      </h1>
-      <div className="adminDashboardCon">
-        <div className="adminMenuCon">
-          <div>User Accounts</div>
-          <div>User Groups</div>
-        </div>
+    <Box className="admin-dashboard">
+      <Typography className="admin-heading">
+        Hello, {username} — you are at the <strong>{userGroup}</strong> dashboard
+      </Typography>
 
-        <div className="adminDashboardBodyCon">
-          <h2>All User Accounts</h2>
-          <table border="1" cellPadding="8" cellSpacing="0">
-            <thead>
-              <tr>
-                <th>Username</th>
-                <th>User Group</th>
-                <th>Edit</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user.useraccount_id}>
-                  <td>{user.username}</td>
-                  <td>{user.usergroup}</td>
-                  <td>
-                    <button onClick={() => alert(`Edit user ${user.username} coming soon!`)}>
-                      Edit
-                    </button>
-                  </td>
-                  <td>
-                    <button onClick={() => handleDelete(user.useraccount_id)}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {users.length === 0 && (
-                <tr>
-                  <td colSpan="4">No users found</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+      <div className="admin-menu">
+        <Button variant="outlined">User Accounts</Button>
+        <Button variant="outlined">User Groups</Button>
       </div>
-    </div>
+
+      <Paper elevation={3}>
+        <Typography className="admin-table-heading">All User Accounts</Typography>
+        <TableContainer className="admin-table-container">
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell><strong>Username</strong></TableCell>
+                <TableCell><strong>User Group</strong></TableCell>
+                <TableCell><strong>Edit</strong></TableCell>
+                <TableCell><strong>Delete</strong></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {users.length > 0 ? (
+                users.map((user) => (
+                  <TableRow key={user.useraccount_id}>
+                    <TableCell>{user.username}</TableCell>
+                    <TableCell>{user.usergroup}</TableCell>
+                    <TableCell>
+                      <Button
+                        variant="contained"
+                        color="info"
+                        onClick={() => alert(`Edit user ${user.username} coming soon!`)}
+                      >
+                        Edit
+                      </Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => handleDelete(user.useraccount_id)}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={4} align="center">
+                    No users found
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+    </Box>
   );
 };
 
