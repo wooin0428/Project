@@ -45,7 +45,7 @@ const AdminDashboard = () => {
 
   return (
     <Box className="admin-dashboard">
-      <Typography className="admin-heading">
+      <Typography variant="h4" className="admin-heading">
         Hello, {username} — you are at the <strong>{userGroup}</strong> dashboard
       </Typography>
 

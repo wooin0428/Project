@@ -69,7 +69,7 @@ const HomeOwnerDashboard = () => {
   return (
     <Container className="homeowner-dashboard">
       <Typography variant="h4" className="dashboard-heading">
-        Hello, {username} — you are at {userGroup} dashboard
+        Hello, {username} — you are at <strong>{userGroup}</strong> dashboard
       </Typography>
 
       <Box component="form" onSubmit={handleSearch} className="cleaner-search-form">

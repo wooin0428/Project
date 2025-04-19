@@ -59,6 +59,7 @@ Homeowners dashboard page styling
 .homeowner-dashboard {
   padding-top: 2rem;
   padding-bottom: 2rem;
+  background-color: #efeed8;
 }
 
 .dashboard-heading {
