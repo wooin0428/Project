@@ -57,6 +57,7 @@ const AdminDashboard = () => {
       <Paper elevation={3}>
         <Typography className="admin-table-heading">All User Accounts</Typography>
         <Button
+          className="admin-add-button"
             variant="contained"
             color="success"
             onClick={() => navigate("/createAcc")}

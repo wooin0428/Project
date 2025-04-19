@@ -43,11 +43,28 @@ Create Acc page styling
 ------------------------------------------------*/
 
 
-.createAccForm
-{
+.create-acc-page {
+  background-color: #efeed8;
+  padding: 2rem;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
+
+.create-acc-heading {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.create-acc-form {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 
 
 /* ----------------------------------------------
@@ -127,6 +144,11 @@ Admin dashboard page styling
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
+}
+
+.admin-add-button
+{
+  padding: 1rem;
 }
 
 .admin-table-container {
