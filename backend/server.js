@@ -181,6 +181,27 @@ app.get("/api/getAllUsers", async (req, res) => {
   }
 });
 
+// 👥 Get all user group names (requires login)
+app.get("/api/getAllUserGroups", async (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ error: "Not logged in" });
+  }
+
+  try {
+    const result = await sql`
+      SELECT group_name FROM usergroups
+    `;
+
+    const groupNames = result.map(row => row.group_name);
+
+    res.json(groupNames); // Example: ["admin", "manager", "cleaner"]
+  } catch (err) {
+    console.error("Failed to fetch user groups:", err);
+    res.status(500).json({ error: "Something went wrong" });
+  }
+});
+
+
 // delete specified user
 app.delete("/api/deleteUser/:id", async (req, res) => {
   const { id } = req.params;
